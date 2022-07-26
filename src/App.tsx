@@ -4,6 +4,7 @@ import Login from "./Login/Login";
 import Home from "./Home/Home";
 import Register from "./Register/Register";
 import "./App.css";
+import Upload from "./Upload/Upload";
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 				<Route path='/' element={<Home />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
+				<Route path='/upload' element={<Upload />} />
 			</Routes>
 		</div>
 	);
