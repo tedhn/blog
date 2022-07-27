@@ -6,9 +6,21 @@ import Register from "./Register/Register";
 import "./App.css";
 import Upload from "./Upload/Upload";
 
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
 	return (
-		<div className='App'>
+		<div className='h-full bg-amber-50'>
+			<ToastContainer
+				position='top-center'
+				autoClose={2000}
+				hideProgressBar
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+			/>
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/login' element={<Login />} />

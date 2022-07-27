@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
 	const [username, setUsername] = useState("");
@@ -10,27 +11,41 @@ const Register = () => {
 
 	const navigate = useNavigate();
 
+	const notifySuccess = () => toast.success(`Welcome ${username}! 🎉`);
+	const notifyFailure = (msg: string) => toast.error(msg);
+
 	const handleRegister = async () => {
-		try{
-			const response = await axios.post(
-			"http://localhost:1338/api/auth/local/register",
-			{
-				username,
-				password,
-				email,
+		if (verifyPassword()) {
+			try {
+				const response = await axios.post(
+					"http://localhost:1338/api/auth/local/register",
+					{
+						username,
+						password,
+						email,
+					}
+				);
+
+				localStorage.setItem("jwt", response.data.jwt);
+				navigate("/");
+				notifySuccess();
+			} catch (e: any) {
+				switch (e.response.status) {
+					case 400: {
+						notifyFailure("Incorrect credentials format.");
+						break;
+					}
+					default: {
+						notifyFailure("Error occured while registering.");
+					}
+				}
 			}
-		);
-
-		localStorage.setItem("jwt", response.data.jwt);
-
-		navigate("/");
-		}
-		catch(e){
-			console.log(e)
+		} else {
+			notifyFailure("Passwords do not match.");
 		}
 	};
 
-	const verifyPassword = (password: string) => {};
+	const verifyPassword = () => password === confirm;
 
 	return (
 		<div className='container h-screen mx-auto flex justify-center items-center'>
@@ -44,6 +59,7 @@ const Register = () => {
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							setUsername(e.target.value)
 						}
+						required
 						className='px-1 py-2 border-solid border-b-2 border-slate-500 outline-0'
 					/>{" "}
 					<input
@@ -53,6 +69,7 @@ const Register = () => {
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							setEmail(e.target.value)
 						}
+						required
 						className='px-1 py-2 border-solid border-b-2 border-slate-500 outline-0'
 					/>
 					<input

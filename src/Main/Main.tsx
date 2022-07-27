@@ -18,8 +18,7 @@ const Main = () => {
 		);
 
 		getImage();
-		// getImage(data.data[0].attributes.imageId);
-		console.log(data);
+		console.log(data)
 		setPosts(data.data);
 	};
 
@@ -30,13 +29,13 @@ const Main = () => {
 	};
 
 	return (
-		<div>
+		<div className='py-10'>
 			{posts && images && (
 				<div className='container mx-auto flex flex-wrap justify-around gap-y-4'>
 					{posts?.map((post, index) => {
 						const { image, caption } = post.attributes;
 						return (
-							<div className='h-auto rounded-md p-6 flex flex-col justify-center items-center shadow-md'>
+							<div className='h-auto rounded-md p-6 flex flex-col justify-center items-center shadow-md bg-white' key={post.id}>
 								<img
 									className='max-w-xs w-48	 max-h-xs object-cover'
 									src={`http://localhost:1338${images![index].url}`}
