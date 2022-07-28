@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Main from "../Main/Main";
-import { toast } from "react-toastify";
+import PostBoard from "../PostBoard/PostBoard";
 
 interface propsType {
 	user: any;
 }
 
 const Home: React.FC<propsType> = ({ user }) => {
-	const navigate = useNavigate();
-
-
-;
-
 	useEffect(() => {
 		console.log(user);
 	});
 
 	return (
 		<div>
-		
-
-			<Main userId={user?.id} />
+			<PostBoard />
 		</div>
 	);
 };

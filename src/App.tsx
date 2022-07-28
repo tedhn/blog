@@ -10,11 +10,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Post from "./Post/Post";
 import Nav from "./Nav/Nav";
+import PostBoard from "./PostBoard/PostBoard";
 
-// TODO MOVE NAV TO APP.TSX
 // TODO MAKE NEW ROUTE FOR MYPOSTS
 // TODO ADD LOADING ANIMATIONS
-// TODO make sure bg colors are all the same etc when no images are loaded
 
 function App() {
 	const [user, setUser] = useState(undefined);
@@ -31,11 +30,11 @@ function App() {
 			/>
 			<Nav/>
 			<Routes>
-				<Route path='/' element={<Home user={user} />} />
+				<Route path='/' element={<PostBoard />} />
 				<Route path='/login' element={<Login setUser={setUser} />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/upload' element={<Upload user={user} />} />
-				<Route path='/post/:id' element={<Post />} />
+				<Route path='/mypost' element={<PostBoard user={user} />} />
 			</Routes>
 		</div>
 	);

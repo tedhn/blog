@@ -27,6 +27,7 @@ const Login: React.FC<propsType> = ({ setUser }) => {
 			);
 
 			localStorage.setItem("jwt", response.data.jwt);
+			localStorage.setItem("user", response.data.user);
 			navigate("/");
 			notifySuccess(response.data.user.username);
 			setUser(response.data.user);

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getUserPost } from "../api";
 
 const Nav = () => {
 	const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Nav = () => {
 			<div className='container mx-auto flex justify-between items-center gap-4 p-2'>
 				<div className='flex justify-around gap-4'>
 					<div onClick={() => navigate("/")}>Home</div>
-					{jwtToken && <div>My Posts</div>}
+					{jwtToken && <div onClick={() => navigate("/mypost")}>My Posts</div>}
 				</div>
 
 				{jwtToken ? (

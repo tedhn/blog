@@ -29,28 +29,31 @@ const createPost = async (imageId: number, caption: string, userId: number) => {
 const getPost = async () => {
 	const jwtToken = localStorage.getItem("jwt");
 
-	const { data } = await axios.get(
+	const postData = await axios.get(
 		`http://localhost:1338/api/posts?fields=caption,imageId&populate=user&Authorization=Bearer ${jwtToken}`
 	);
 
-	getImage();
-	console.log(data);
-	// setPosts(data.data);
-	return data.data;
+	const imageData = await getImage();
+
+	const posts = postData.data.data.map((post: any, index: number) => ({
+		caption: post.attributes.caption,
+		url: imageData[index].url,
+		id: post.id,
+	}));
+
+	return posts;
 };
 
 const getImage = async () => {
 	const { data } = await axios.get(`http://localhost:1338/api/upload/files`);
-	console.log(data);
+	// console.log(data);
 
 	return data;
 };
-const getThatImage = async (imageId: number) => {
+const getThatImage = async (imageId?: number) => {
 	const { data } = await axios.get(
 		`http://localhost:1338/api/upload/files/${imageId}`
 	);
-	console.log(data);
-
 	return data;
 };
 
@@ -59,13 +62,16 @@ const getUserPost = async (userId: number) => {
 		`http://localhost:1338/api/users/${userId}?populate=posts`
 	);
 
-	const imageData = await data.posts.map(async (post: any, index: number) => {
-		const image = await getThatImage(post.imageId);
+	const postData = await Promise.all(
+		data.posts.map(async (post: any, index: number) => {
+			const imageData = await getThatImage(post.imageId);
 
-		return image;
-	});
+			return { caption: post.caption, url: imageData.url, id: post.id };
+		})
+	);
 
-	return imageData;
+	console.log(postData);
+	return postData;
 };
 export {
 	uploadImage,
