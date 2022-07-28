@@ -1,31 +1,29 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { getImage, getPost, getUserPost } from "../api";
 
-const Main = () => {
+interface propsTypes {
+	userId: number;
+}
+
+const Main: React.FC<propsTypes> = ({  userId }) => {
 	const [posts, setPosts] = useState<Array<any>>();
 	const [images, setImages] = useState<Array<any>>();
 
 	useEffect(() => {
-		getPost();
-		getImage();
-	}, []);
+		console.log('123')
+		loadPosts();
+	}, [ ]);
 
-	const getPost = async () => {
-		const jwtToken = localStorage.getItem("jwt");
+	const loadPosts = async () => {
 
-		const { data } = await axios.get(
-			`http://localhost:1338/api/posts?fields=caption,imageId&populate=user&Authorization=Bearer=${jwtToken}`
-		);
+		const postsData =	 await getPost();
+		
 
-		getImage();
-		console.log(data)
-		setPosts(data.data);
-	};
+		const imageData = await getImage();
 
-	const getImage = async () => {
-		const { data } = await axios.get(`http://localhost:1338/api/upload/files`);
-		console.log(data);
-		setImages(data);
+		setPosts(postsData);
+		setImages(imageData);
 	};
 
 	return (
@@ -33,9 +31,11 @@ const Main = () => {
 			{posts && images && (
 				<div className='container mx-auto flex flex-wrap justify-around gap-y-4'>
 					{posts?.map((post, index) => {
-						const { image, caption } = post.attributes;
+						const { caption } = post.attributes;
 						return (
-							<div className='h-auto rounded-md p-6 flex flex-col justify-center items-center shadow-md bg-white' key={post.id}>
+							<div
+								className='h-auto rounded-md p-6 flex flex-col justify-center items-center shadow-md bg-white'
+								key={post.id}>
 								<img
 									className='max-w-xs w-48	 max-h-xs object-cover'
 									src={`http://localhost:1338${images![index].url}`}

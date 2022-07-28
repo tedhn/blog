@@ -49,7 +49,7 @@ const Register = () => {
 
 	return (
 		<div className='container h-screen mx-auto flex justify-center items-center'>
-			<div className='container max-w-sm p-6 flex flex-col justify-around gap-9 shadow-md m-auto'>
+			<div className='container max-w-sm p-6 flex flex-col justify-around gap-9 m-auto shadow-md bg-slate-50 '>
 				<h2 className='uppercase text-2xl'>register</h2>
 				<div className='flex flex-col gap-3'>
 					<input
@@ -60,8 +60,8 @@ const Register = () => {
 							setUsername(e.target.value)
 						}
 						required
-						className='px-1 py-2 border-solid border-b-2 border-slate-500 outline-0'
-					/>{" "}
+						className='input-primary'
+					/>
 					<input
 						type='text'
 						placeholder='email'
@@ -70,7 +70,7 @@ const Register = () => {
 							setEmail(e.target.value)
 						}
 						required
-						className='px-1 py-2 border-solid border-b-2 border-slate-500 outline-0'
+						className='input-primary'
 					/>
 					<input
 						type='text'
@@ -79,7 +79,7 @@ const Register = () => {
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							setPassword(e.target.value)
 						}
-						className='px-1 py-2 border-solid border-b-2 border-slate-500 outline-0'
+						className='input-primary'
 					/>
 					<input
 						type='text'
@@ -88,7 +88,7 @@ const Register = () => {
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							setConfirm(e.target.value)
 						}
-						className='px-1 py-2 border-solid border-b-2 border-slate-500 outline-0'
+						className='input-primary'
 					/>
 				</div>
 

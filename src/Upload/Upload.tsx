@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createPost, uploadImage } from "../api";
 
-const Upload = () => {
+interface propsTypes {
+	user: any;
+}
+
+const Upload: React.FC<propsTypes> = ({user}) => {
 	const [image, setImage] = useState<any>();
 	const [caption, setCaption] = useState("");
 
@@ -16,7 +20,7 @@ const Upload = () => {
 	const handleUpload = async () => {
 		try {
 			const response = await uploadImage(image);
-			createPost(response.data[0].id, caption);
+			createPost(response.data[0].id, caption, user.id);
 			navigate("/");
 			notifySuccess();
 		} catch (e: any) {
@@ -43,25 +47,28 @@ const Upload = () => {
 							className='px-1 py-2 border-solid border-b-2  border-slate-500 outline-0'
 						/>
 						<div className='flex justify-evenly gap-4'>
-							<button onClick={() => navigate("/")} className='text-black'>
+							<button onClick={() => navigate("/")} className='btn-secondary'>
 								Back
 							</button>
-							<button
-								onClick={handleUpload}
-								className='text-white bg-slate-900 px-4 py-2 rounded-md'>
+							<button onClick={handleUpload} className='btn-primary'>
 								Upload
 							</button>
 						</div>
 					</>
 				) : (
-					<>
+					<div className='flex gap-4 justify-around items-center'>
 						<input
 							type='file'
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 								setImage(e.target.files![0])
 							}
+							className='m-5'
 						/>
-					</>
+
+						<button onClick={() => navigate("/")} className='btn-primary'>
+							Close
+						</button>
+					</div>
 				)}
 			</div>
 		</div>
