@@ -12,7 +12,7 @@ import Post from "./Post/Post";
 import Nav from "./Nav/Nav";
 import PostBoard from "./PostBoard/PostBoard";
 
-// TODO MAKE NEW ROUTE FOR MYPOSTS
+// TODO change authroized members for diff users
 // TODO ADD LOADING ANIMATIONS
 
 function App() {

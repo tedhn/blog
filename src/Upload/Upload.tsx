@@ -37,7 +37,7 @@ const Upload: React.FC<propsTypes> = ({user}) => {
 			<div className='flex flex-col justify-around items-center gap-6 shadow-xl p-6 rounded-md bg-white'>
 				{image ? (
 					<>
-						<img src={URL.createObjectURL(image)} alt='' className='max-w-xs' />{" "}
+						<img src={URL.createObjectURL(image)} alt='' className='max-w-xs' />
 						<input
 							type='text'
 							placeholder={"Enter your captions here"}

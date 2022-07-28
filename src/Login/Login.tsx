@@ -27,7 +27,7 @@ const Login: React.FC<propsType> = ({ setUser }) => {
 			);
 
 			localStorage.setItem("jwt", response.data.jwt);
-			localStorage.setItem("user", response.data.user);
+			localStorage.setItem("user", response.data.user.id);
 			navigate("/");
 			notifySuccess(response.data.user.username);
 			setUser(response.data.user);
@@ -45,28 +45,39 @@ const Login: React.FC<propsType> = ({ setUser }) => {
 	};
 
 	return (
-		<div className='container mx-auto flex justify-center items-center'>
-			<div className='container w-1/3 min-w- max-w-sm p-6 flex flex-col justify-around gap-9 mx-auto bg-slate-50 shadow-xl'>
+		<div className='container mx-auto my-10 flex justify-center items-center'>
+			<div className='container max-w-md min-w-sm  p-6 flex flex-col justify-around gap-9 mx-auto bg-slate-50 shadow-xl'>
 				<h2 className='uppercase text-2xl'>Login</h2>
 				<div className='flex flex-col gap-3'>
-					<input
-						type='text'
-						placeholder='email'
-						value={email}
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setEmail(e.target.value)
-						}
-						className='input-primary'
-					/>
-					<input
-						type='text'
-						placeholder='password'
-						value={password}
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setPassword(e.target.value)
-						}
-						className='input-primary'
-					/>
+					<div className='flex flex-col'>
+						<label htmlFor='email' className='text-xs'>
+							Email
+						</label>
+						<input
+							type='text'
+							id='email'
+							placeholder='Email'
+							value={email}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+								setEmail(e.target.value)
+							}
+							className='input-primary'
+						/>
+					</div>
+					<div className='flex flex-col'>
+						<label htmlFor='password' className='text-xs'>
+							Password
+						</label>
+						<input
+							type='text'
+							placeholder='Password'
+							value={password}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+								setPassword(e.target.value)
+							}
+							className='input-primary'
+						/>
+					</div>
 				</div>
 
 				<div className='flex justify-around mt-3'>

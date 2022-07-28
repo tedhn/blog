@@ -1,6 +1,6 @@
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
-import { getImage, getPost, getUserPost } from "../api";
+import {  getPost, getUserPost } from "../api";
 
 interface propsTypes {
 	user?: any;
@@ -10,8 +10,6 @@ const PostBoard: React.FC<propsTypes> = ({ user }) => {
 	const [posts, setPosts] = useState<Array<any>>();
 
 	useEffect(() => {
-		console.log("123");
-		console.log(user);
 		loadPosts();
 	}, [user]);
 

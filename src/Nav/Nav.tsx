@@ -20,8 +20,8 @@ const Nav = () => {
 		<div className='sticky top-0 bg-amber-50 shadow-md'>
 			<div className='container mx-auto flex justify-between items-center gap-4 p-2'>
 				<div className='flex justify-around gap-4'>
-					<div onClick={() => navigate("/")}>Home</div>
-					{jwtToken && <div onClick={() => navigate("/mypost")}>My Posts</div>}
+					<div onClick={() => navigate("/") } className='btn-secondary'>Home</div>
+					{jwtToken && <div onClick={() => navigate("/mypost")} className='btn-secondary'>My Posts</div>}
 				</div>
 
 				{jwtToken ? (

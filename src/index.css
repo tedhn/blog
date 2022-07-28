@@ -27,14 +27,14 @@ code {
 @layer components {
 
   .btn-primary {
-    @apply text-white bg-slate-900 px-4 py-2 rounded-md border-2 border-transparent hover:text-slate-900 hover:bg-transparent hover:border-2 hover:border-slate-900;
+    @apply text-white bg-blue-500 px-4 py-2 rounded-md active:bg-blue-900 hover:outline-2  hover:-translate-y-[1px] transition duration-150 ease-out hover:ease-in hover:shadow-md;
   }
 
   .btn-secondary {
-    @apply text-slate-900 px-4 py-2 rounded-md border-2 border-transparent hover:border-2 hover:border-slate-900;
+    @apply text-slate-900 px-4 py-2 border-b-2 border-transparent hover:border-b-2 hover:border-blue-600 hover:cursor-pointer;
   }
 
-  .input-primary{
-    @apply px-1 py-2 border-solid border-b-2 border-slate-500 outline-0 bg-transparent;
+  .input-primary {
+    @apply px-2 py-1 rounded-md border-2 border-slate-400 outline-2 outline-slate-400 bg-transparent focus:outline-blue-500 ;
   }
 }
