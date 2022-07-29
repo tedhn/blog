@@ -18,11 +18,7 @@ function App() {
 
 	useEffect(() => {
 		localStorage.clear();
-	
-
 	}, []);
-	
-
 
 	return (
 		<div className='h-screen bg-amber-50'>
@@ -34,13 +30,14 @@ function App() {
 				rtl={false}
 				pauseOnFocusLoss
 			/>
-			<Nav/>
+			<Nav />
 			<Routes>
-				<Route path='/' element={<PostBoard />} />
-				<Route path='/login' element={<Login setUser={setUser} />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='/upload' element={<Upload user={user} />} />
-				<Route path='/mypost' element={<PostBoard user={user} />} />
+				<Route path='/blog' element={<PostBoard />} >
+					<Route path='login' element={<Login setUser={setUser} />} />
+					<Route path='register' element={<Register />} />
+					<Route path='upload' element={<Upload user={user} />} />
+					<Route path='mypost' element={<PostBoard user={user} />} />
+				</Route>
 			</Routes>
 		</div>
 	);
