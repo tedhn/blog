@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./Login/Login";
-import Home from "./Home/Home";
 import Register from "./Register/Register";
 import Upload from "./Upload/Upload";
 
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import Post from "./Post/Post";
 import Nav from "./Nav/Nav";
 import PostBoard from "./PostBoard/PostBoard";
 
@@ -17,6 +15,14 @@ import PostBoard from "./PostBoard/PostBoard";
 
 function App() {
 	const [user, setUser] = useState(undefined);
+
+	useEffect(() => {
+		localStorage.clear();
+	
+
+	}, []);
+	
+
 
 	return (
 		<div className='h-screen bg-amber-50'>

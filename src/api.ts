@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const uploadImage = async (image: File) => {
+	const jwtToken = localStorage.getItem("jwt");
+
 	try {
 		let formData = new FormData();
 
@@ -10,7 +12,10 @@ const uploadImage = async (image: File) => {
 			`http://localhost:1338/api/upload`,
 			formData,
 			{
-				headers: { "Content-Type": "multipart/form-data" },
+				headers: {
+					"Content-Type": "multipart/form-data",
+					Authorization: `Bearer ${jwtToken}`,
+				},
 			}
 		);
 
@@ -21,9 +26,18 @@ const uploadImage = async (image: File) => {
 };
 
 const createPost = async (imageId: number, caption: string, userId: number) => {
-	axios.post("http://localhost:1338/api/posts", {
-		data: { caption, imageId, user: userId },
-	});
+	const jwtToken = localStorage.getItem("jwt");
+	axios.post(
+		"http://localhost:1338/api/posts",
+		{
+			data: { caption, imageId, user: userId },
+		},
+		{
+			headers: {
+				Authorization: `Bearer ${jwtToken}`,
+			},
+		}
+	);
 };
 
 const getPost = async () => {
@@ -46,7 +60,6 @@ const getPost = async () => {
 
 const getImage = async () => {
 	const { data } = await axios.get(`http://localhost:1338/api/upload/files`);
-	// console.log(data);
 
 	return data;
 };
@@ -70,7 +83,6 @@ const getUserPost = async (userId: number) => {
 		})
 	);
 
-	console.log(postData);
 	return postData;
 };
 export {
