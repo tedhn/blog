@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getPost, getUserPost } from "../api";
+import { getPost, getUserPost } from "../../api";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Post from "../../Components/Post/Post";
+
 interface propsTypes {
 	user?: any;
 }
@@ -45,7 +47,7 @@ const PostBoard: React.FC<propsTypes> = ({ user }) => {
 
 	return (
 		<div className='py-10'>
-			{posts && (
+			{posts ? (
 				<div className='container mx-auto flex flex-wrap justify-around gap-y-4'>
 					{posts.map((post, index) => {
 						const { caption, url, id } = post;
@@ -58,21 +60,12 @@ const PostBoard: React.FC<propsTypes> = ({ user }) => {
 										Delete Post
 									</span>
 								)}
-								<div
-									className='rounded-md p-6 flex flex-col justify-center items-center shadow-md bg-white'
-									key={id}>
-									<img
-										className='max-w-xs w-48	 max-h-xs object-cover'
-										src={`http://localhost:1338${url}`}
-										alt='404'
-									/>
-									<div className='mt-2'>{caption}</div>
-								</div>
+								<Post caption={caption} url={url} id={id} />
 							</div>
 						);
 					})}
 				</div>
-			)}
+			) : <div className="container mx-auto">Loading Posts</div>}
 		</div>
 	);
 };

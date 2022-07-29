@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "./Login/Login";
-import Register from "./Register/Register";
-import Upload from "./Upload/Upload";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import Upload from "./Pages/Upload/Upload";
 
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import Nav from "./Nav/Nav";
-import PostBoard from "./PostBoard/PostBoard";
+import Nav from "./Components/Nav/Nav";
+import PostBoard from "./Pages/PostBoard/PostBoard";
 
 // TODO change authroized members for diff users
 // TODO ADD LOADING ANIMATIONS
