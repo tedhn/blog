@@ -4,12 +4,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Post from "../../Components/Post/Post";
 
+import { ClimbingBoxLoader } from "react-spinners";
 interface propsTypes {
 	user?: any;
 }
 
 const PostBoard: React.FC<propsTypes> = ({ user }) => {
 	const [posts, setPosts] = useState<Array<any>>();
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		loadPosts();
@@ -23,6 +25,7 @@ const PostBoard: React.FC<propsTypes> = ({ user }) => {
 			const postsData = await getPost();
 			setPosts(postsData);
 		}
+		setIsLoading(false);
 	};
 
 	const deletePost = async (imageId: number) => {
@@ -65,7 +68,14 @@ const PostBoard: React.FC<propsTypes> = ({ user }) => {
 						);
 					})}
 				</div>
-			) : <div className="container mx-auto">Loading Posts</div>}
+			) : (
+				<div className='container mx-auto my-10 text-center'>
+					<div className='flex justify-center'>
+						<ClimbingBoxLoader size={10} />
+					</div>
+					<div>Loading Posts </div>
+				</div>
+			)}
 		</div>
 	);
 };

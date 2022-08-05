@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClimbingBoxLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { createPost, uploadImage } from "../../api";
 
@@ -7,9 +8,10 @@ interface propsTypes {
 	user: any;
 }
 
-const Upload: React.FC<propsTypes> = ({user}) => {
+const Upload: React.FC<propsTypes> = ({ user }) => {
 	const [image, setImage] = useState<any>();
 	const [caption, setCaption] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -18,15 +20,18 @@ const Upload: React.FC<propsTypes> = ({user}) => {
 	const notifyFailure = (msg: string) => toast.error(msg);
 
 	const handleUpload = async () => {
+		setIsLoading(true);
 		try {
 			const response = await uploadImage(image);
 			createPost(response.data[0].id, caption, user.id);
 			navigate("/");
 			notifySuccess();
+			setIsLoading(false);
 		} catch (e: any) {
 			switch (e.response.status) {
 				default: {
 					notifyFailure("Error occured while Uploading.");
+					setIsLoading(false);
 				}
 			}
 		}
@@ -46,14 +51,21 @@ const Upload: React.FC<propsTypes> = ({user}) => {
 							}
 							className='px-1 py-2 border-solid border-b-2  border-slate-500 outline-0'
 						/>
-						<div className='flex justify-evenly gap-4'>
-							<button onClick={() => navigate("/")} className='btn-secondary'>
-								Back
-							</button>
-							<button onClick={handleUpload} className='btn-primary'>
-								Upload
-							</button>
-						</div>
+
+						{isLoading ? (
+							<div className='mx-auto'>
+								<ClimbingBoxLoader size={10} />
+							</div>
+						) : (
+							<div className='flex justify-evenly gap-4'>
+								<button onClick={() => navigate("/")} className='btn-secondary'>
+									Back
+								</button>
+								<button onClick={handleUpload} className='btn-primary'>
+									Upload
+								</button>
+							</div>
+						)}
 					</>
 				) : (
 					<div className='flex gap-4 justify-around items-center'>

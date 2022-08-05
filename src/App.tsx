@@ -10,8 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Nav from "./Components/Nav/Nav";
 import PostBoard from "./Pages/PostBoard/PostBoard";
 
+
+// TODO fix up UI for deleting posts
 // TODO change authroized members for diff users
-// TODO ADD LOADING ANIMATIONS
 
 function App() {
 	const [user, setUser] = useState(undefined);
@@ -32,12 +33,11 @@ function App() {
 			/>
 			<Nav />
 			<Routes>
-				<Route path='/blog' element={<PostBoard />} >
-					<Route path='login' element={<Login setUser={setUser} />} />
-					<Route path='register' element={<Register />} />
-					<Route path='upload' element={<Upload user={user} />} />
-					<Route path='mypost' element={<PostBoard user={user} />} />
-				</Route>
+				<Route path='/' element={<PostBoard />} />
+				<Route path='/login' element={<Login setUser={setUser} />} />
+				<Route path='/register' element={<Register />} />
+				<Route path='/upload' element={<Upload user={user} />} />
+				<Route path='/mypost' element={<PostBoard user={user} />} />
 			</Routes>
 		</div>
 	);

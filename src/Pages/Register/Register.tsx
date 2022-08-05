@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClimbingBoxLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
 const Register = () => {
@@ -8,13 +9,14 @@ const Register = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirm, setConfirm] = useState("");
-
+	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
 
 	const notifySuccess = () => toast.success(`Welcome ${username}! 🎉`);
 	const notifyFailure = (msg: string) => toast.error(msg);
 
 	const handleRegister = async () => {
+		setIsLoading(true);
 		if (verifyPassword()) {
 			try {
 				const response = await axios.post(
@@ -29,13 +31,16 @@ const Register = () => {
 				localStorage.setItem("jwt", response.data.jwt);
 				navigate("/");
 				notifySuccess();
+				setIsLoading(false);
 			} catch (e: any) {
 				switch (e.response.status) {
 					case 400: {
+						setIsLoading(false);
 						notifyFailure("Incorrect credentials format.");
 						break;
 					}
 					default: {
+						setIsLoading(false);
 						notifyFailure("Error occured while registering.");
 					}
 				}
@@ -117,12 +122,20 @@ const Register = () => {
 					</div>
 				</div>
 
-				<div className='flex justify-around mt-3'>
-					<button onClick={() => navigate("/")}>Back</button>
-					<button onClick={handleRegister} className='btn-primary'>
-						Register
-					</button>
-				</div>
+				{isLoading ? (
+					<div className='mx-auto'>
+						<ClimbingBoxLoader size={10} />
+					</div>
+				) : (
+					<div className='flex justify-around mt-3'>
+						<button className='btn-secondary' onClick={() => navigate("/")}>
+							Back
+						</button>
+						<button className='btn-primary' onClick={handleRegister}>
+							Register
+						</button>
+					</div>
+				)}
 			</div>
 		</div>
 	);
